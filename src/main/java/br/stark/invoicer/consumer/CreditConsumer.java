@@ -9,6 +9,7 @@ import br.stark.invoicer.http.TransferStarkApi;
 import br.stark.invoicer.interactors.TransferUseCase;
 import br.stark.invoicer.model.Transfer;
 import br.stark.invoicer.service.AMQPPublisher;
+import br.stark.invoicer.service.TransferService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rabbitmq.client.AMQP;
@@ -16,6 +17,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -61,14 +63,13 @@ public class CreditConsumer extends DefaultConsumer {
 
         if ("credited".equals(dto.getEvent().getLog().getInvoiceEventType())) {
 
-            //façade
-            var transferCreator = new TransferUseCase(new TransferStarkApi());
-
-            Transfer transfer = new Transfer();
-            transfer.setAmount(dto.getEvent().getLog().getInvoice().getAmount());
-            transfer.setFee(dto.getEvent().getLog().getInvoice().getFee());
-
-            transferCreator.execute(transfer);
+            TransferService transferService = new TransferService();
+            
+            var amount = dto.getEvent().getLog().getInvoice().getAmount();
+            
+            var fee = dto.getEvent().getLog().getInvoice().getFee();
+            
+            transferService.transfer(amount, fee);
 
             var publisher = new AMQPPublisher();
 
