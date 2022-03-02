@@ -1,0 +1,3 @@
+[submodule "banking-challenge"]
+	path = banking-challenge
+	url = https://github.com/lucas-salves/banking-challenge.git
