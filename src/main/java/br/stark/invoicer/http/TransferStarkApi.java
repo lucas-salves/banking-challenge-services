@@ -5,9 +5,8 @@
 package br.stark.invoicer.http;
 
 import br.stark.invoicer.repository.TransferRepository;
+import br.stark.invoicer.util.ApiUtils;
 import br.stark.invoicer.util.DecimalUtil;
-import com.starkbank.Project;
-import com.starkbank.Settings;
 import com.starkbank.Transfer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -22,15 +21,8 @@ public class TransferStarkApi implements TransferRepository {
 
     @Override
     public void transfer(br.stark.invoicer.model.Transfer transferData) throws Exception {
-        String privateKeyContent = "-----BEGIN EC PRIVATE KEY-----\n"
-                + "MHQCAQEEIBCUgqBo7v84iMpoyciqqe8pabsv5vh7VjBaXYM5XbEroAcGBSuBBAAK\n"
-                + "oUQDQgAElvMZeKIdKxTeNQ398gmBj9/Txii7Sf71irgxW2UHzsgedgTbm6LcLAju\n"
-                + "hB5AVxt9A/yZWsnSi+nz4J3NaXV0Dw==\n"
-                + "-----END EC PRIVATE KEY-----";
-
-        Project project = new Project("sandbox", "4750343523008512", privateKeyContent);
-
-        Settings.user = project;
+       
+        ApiUtils.setProject();
 
         var invoiceFee = transferData.getFee();
 
