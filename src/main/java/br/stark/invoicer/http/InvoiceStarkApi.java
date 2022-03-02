@@ -7,12 +7,11 @@ package br.stark.invoicer.http;
 import br.stark.invoicer.repository.InvoiceRepository;
 import br.stark.invoicer.util.ApiUtils;
 import com.starkbank.Invoice;
-import com.starkbank.Project;
-import com.starkbank.Settings;
 import com.starkbank.utils.Generator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -27,7 +26,17 @@ public class InvoiceStarkApi implements InvoiceRepository {
         ApiUtils.setProject();
 
         HashMap<String, Object> params = new HashMap<>();
-        params.put("after", "2020-10-01"); // mudar para "before": "data de hoje"
+        
+        DateTime date = DateTime.now();
+        
+        var year = date.yearOfEra();
+        var month = date.monthOfYear();
+        var day = date.dayOfMonth(); 
+        
+        String dateTemplate = year.get()+"-"+month.get()+"-"+day.get();
+        
+        params.put("before", dateTemplate);
+        
         Generator<Invoice> invoices = Invoice.query(params);
 
         for (Invoice invoice : invoices) {
