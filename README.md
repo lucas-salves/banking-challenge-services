@@ -10,7 +10,7 @@
 
 Foi utilizado um message broker RabbitMQ para reduzir o acoplamento do sistema
 
-Não consegui instalar um certificado SSL na instância EC2, então o projeto do webhook ficou local
+Não consegui instalar um certificado SSL na instância EC2, então o projeto do webhook ficou local e foi utilizado ngrok para expor o serviço para internet.
 
 Foi utilizado um TimerTask com a biblioteca Joda para verificar se passaram 3h desde o último schedule e se passaram 24h desde o primeiro schedule.
 ```
