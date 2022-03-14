@@ -70,12 +70,6 @@ public class CreditConsumer extends DefaultConsumer {
             var fee = dto.getEvent().getLog().getInvoice().getFee();
             
             transferService.transfer(amount, fee);
-
-            var publisher = new AMQPPublisher();
-
-            publisher.sendToQueue("credited_invoices", gson.toJson(dto));
-
-            publisher.close();
         }
     }
 
