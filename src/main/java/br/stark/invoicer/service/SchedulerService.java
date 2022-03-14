@@ -27,7 +27,7 @@ public class SchedulerService {
 
         var lastItemCreated = hasLastItem();
 
-        if (lastItemCreated != null) {
+        if (lastItemCreated != null) {  
 
             String timestamp = hasLastItem().created;
 
@@ -63,7 +63,6 @@ public class SchedulerService {
             var invoices = interactor.listInvoicesUseCase();
 
             var createdInvoices = invoices.stream()
-                    .filter(invoice -> "created".equals(invoice.status))
                     .distinct()
                     .collect(Collectors.toList());
 
