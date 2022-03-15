@@ -43,7 +43,7 @@ public class SchedulerService {
             var interval = new Interval(lastTime, currentTime).toDurationMillis();
 
             // 1h=3600000 / 3h=10800000
-            if (interval >= 900000) {
+            if (interval >= 300000) {
                 lastId = "";
                 if (!(lastId.equals(lastItemCreated.id))) {
                     lastId = lastItemCreated.id;
