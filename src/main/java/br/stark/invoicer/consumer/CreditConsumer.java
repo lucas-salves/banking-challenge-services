@@ -62,7 +62,11 @@ public class CreditConsumer extends DefaultConsumer {
         var dto = gson.fromJson(message, InvoiceDto.class);
 
         if ("credited".equals(dto.getEvent().getLog().getInvoiceEventType())) {
-
+            System.out.println("============-------------------==========");
+            System.out.println("*****************************************");
+            System.out.println("*****************************************");
+            System.out.println("*****************************************");
+            System.out.println("============---TRANSFERÊNCIA---==========");
             TransferService transferService = new TransferService();
             
             var amount = dto.getEvent().getLog().getInvoice().getAmount();
