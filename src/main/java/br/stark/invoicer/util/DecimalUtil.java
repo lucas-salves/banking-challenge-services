@@ -24,6 +24,10 @@ public class DecimalUtil {
         
         String decimal = formatter.format(value);
         
+        decimal = decimal.replaceFirst(",", "");
+        
+        System.out.println(decimal);
+        
         return new BigDecimal(decimal.replaceAll(",", ".")).setScale(2, RoundingMode.HALF_EVEN);
     }
 }
